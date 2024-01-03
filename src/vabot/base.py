@@ -4,7 +4,6 @@ import httpx
 import os
 
 from typing import Optional, Any
-from httpx import Client
 from fake_useragent import UserAgent
 from bs4 import BeautifulSoup
 from rich import print
@@ -13,10 +12,10 @@ from vabot.config import BaseConfig as cfg
 
 ua = UserAgent()
 
-class BaseVabot(object):
+class BaseChatBotAI(object):
     def search_with_bing(self, query: str):
         url: str = "https://www.bing.com/"
-        params = {
+        params: dict[str, Any] = {
             "q": query,
             "form": "QBLH",
             "sp": -1,
@@ -36,6 +35,7 @@ class BaseVabot(object):
         }
         search_url = url + "search"
         response = httpx.get(search_url, params=params, headers=headers)
+        print("Process URL: {}".format(response.url))
 
         # get response
         f = open(os.path.join(cfg.BASE_DIR, "response.html"), "w+", encoding="UTF-8")

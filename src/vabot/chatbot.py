@@ -11,12 +11,11 @@ from bs4 import BeautifulSoup
 from rich import print
 
 from vabot.config import BaseConfig as cfg
-from vabot.base import BaseVabot
+from vabot.base import BaseChatBotAI
 
-class Vabot(BaseVabot):
+class ChatBotAI(BaseChatBotAI):
     def __init__(
-        self, api_key: Optional[str] = None, organization_id: Optional[str] = None
-    ) -> None:
+        self, api_key: Optional[str] = None, organization_id: Optional[str] = None) -> None:
         self.api_key: Optional[str] = api_key
         self.engine: str = "text-davinci-003"
         self.model = ["gpt-3.5-turbo"]
@@ -24,7 +23,3 @@ class Vabot(BaseVabot):
         self.search_engine: list[str] = ["google", "bing"]
         self.client: Client = Client()
         self.openai: OpenAI = OpenAI(api_key=self.api_key, organization=self.oganization_id)
-
-    def generate_response(self, prompt: str, max_tokens: int = 50, temperature: float = 0.7):
-       pass
-    
